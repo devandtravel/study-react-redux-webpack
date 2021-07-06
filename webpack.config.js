@@ -1,10 +1,52 @@
-import path from 'path';
+const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: "development",
-    entry: "./src/index.js",
+    mode: 'development',
+    entry: ['@babel/polyfill', './src/index.jsx'],
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "[name].[hash].js"
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[fullhash].js'
     },
+    devServer: {
+        port: 8080
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    plugins: [new HTMLWebpackPlugin({ template: './src/index.html' }), new CleanWebpackPlugin()],
+
+    module: {
+        rules: [
+            {
+                test: /\.(css|less)$/,
+                use: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(jpe?g|png|gif|webp|svg)/,
+                use: ['file-loader']
+            },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.m?jsx$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-react', '@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
 }
