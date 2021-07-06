@@ -9,6 +9,5 @@ export const getRepos = (searchQuery = 'stars:%3E1', currentPage, perPage) => {
             `https://api.github.com/search/repositories?q=${searchQuery}&sort=stars&per_page=${perPage}&page=${currentPage}`
         )
         dispatch(setRepos(response.data))
-        console.log(response.data);
     }
 }

@@ -14,13 +14,11 @@ export const Main = () => {
     const totalCount = useSelector(state => state.repos.totalCount)
     const perPage = useSelector(state => state.repos.perPage)
     const [searchValue, setSearchValue] = useState('')
-    console.log(totalCount, perPage, currentPage)
+
     const pagesCount = Math.ceil(totalCount / perPage)
-
     const pages = []
+    
     createPages(pages, pagesCount, currentPage)
-
-    console.log(pages)
 
     useEffect(() => {
         dispatch(getRepos(searchValue, currentPage, perPage))
