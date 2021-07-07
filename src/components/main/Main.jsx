@@ -13,11 +13,13 @@ export const Main = () => {
     const currentPage = useSelector(state => state.repos.currentPage)
     const totalCount = useSelector(state => state.repos.totalCount)
     const perPage = useSelector(state => state.repos.perPage)
+    const isFetchError = useSelector(state => state.repos.isFetchError)
+
     const [searchValue, setSearchValue] = useState('')
 
     const pagesCount = Math.ceil(totalCount / perPage)
     const pages = []
-    
+
     createPages(pages, pagesCount, currentPage)
 
     useEffect(() => {
@@ -31,6 +33,11 @@ export const Main = () => {
 
     return (
         <>
+            {isFetchError&&
+                <div className='alert alert-danger' role='alert'>
+                    ERROR
+                </div>
+            }
             <div className='search'>
                 <input
                     value={searchValue}
