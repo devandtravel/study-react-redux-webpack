@@ -14,4 +14,4 @@ To install run
 
 To execute in *dev* mode run  
 `webpack --watch`  
-`npm run dev`
+`npm start`
